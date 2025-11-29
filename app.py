@@ -1,24 +1,23 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 import mysql.connector
 from mysql.connector import Error
+from config import DB_HOST, DB_USER, DB_PASSWORD, DB_NAME
 
 app = Flask(__name__)
 app.secret_key = "supersecretkey"  # Necesario para mostrar mensajes flash
 
-# Configuración de la base de datos
-db_config = {
-    'host': 'localhost',      # Cambiar a tu host RDS cuando subas a AWS
-    'user': 'tu_usuario',
-    'password': 'tu_password',
-    'database': 'leads_db'
-}
-
+# Funcion de conexion
 def get_db_connection():
     try:
-        connection = mysql.connector.connect(**db_config)
-        return connection
+        conn = mysql.connector.connect(
+            host=DB_HOST,
+            user=DB_USER,
+            password=DB_PASSWORD,
+            database=DB_NAME
+        )
+        return conn
     except Error as e:
-        print("Error al conectar a la base de datos:", e)
+        print("Error de conexión:", e)
         return None
 
 @app.route("/", methods=["GET", "POST"])
