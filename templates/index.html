@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leads Tracker - Registro de Clientes</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <!-- Encabezado -->
+    <header class="bg-blue-600 text-white py-6 shadow-md">
+        <div class="container mx-auto text-center">
+            <h1 class="text-3xl font-bold">Sistema de Gestión de Leads</h1>
+            <p class="mt-2">Registra y gestiona clientes potenciales de forma fácil y segura</p>
+            <!-- Imagen representativa -->
+            <img src="{{ url_for('static', filename='images/leads.png') }}" alt="Gestión de Leads"
+                 class="mx-auto mt-4 w-32 h-32 object-contain">
+        </div>
+    </header>
+
+    <!-- Sección principal -->
+    <main class="container mx-auto mt-10">
+        <div class="max-w-2xl mx-auto bg-white p-8 rounded shadow-md">
+            <h2 class="text-2xl font-semibold mb-6 text-center">Registro de Lead</h2>
+
+            <!-- Mensajes flash -->
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+                  {% for message in messages %}
+                    <p>{{ message }}</p>
+                  {% endfor %}
+                </div>
+              {% endif %}
+            {% endwith %}
+
+            <form method="POST" action="/" class="space-y-4">
+
+                <!-- Nombre Completo -->
+                <div>
+                    <label for="nombre" class="block text-gray-700 font-medium mb-1">Nombre Completo</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Juan Pérez" required
+                           class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
+                </div>
+
+                <!-- Correo Electrónico -->
+                <div>
+                    <label for="correo" class="block text-gray-700 font-medium mb-1">Correo Electrónico</label>
+                    <input type="email" id="correo" name="correo" placeholder="correo@ejemplo.com" required
+                           class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
+                </div>
+
+                <!-- Teléfono -->
+                <div>
+                    <label for="telefono" class="block text-gray-700 font-medium mb-1">Teléfono</label>
+                    <input type="text" id="telefono" name="telefono" placeholder="987654321"
+                           class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
+                </div>
+
+                <!-- Interés/Servicio -->
+                <div>
+                    <label for="interes" class="block text-gray-700 font-medium mb-1">Interés / Servicio Solicitado</label>
+                    <select id="interes" name="interes" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
+                        <option value="">Selecciona un servicio</option>
+                        <option value="Servicio A">Servicio A</option>
+                        <option value="Servicio B">Servicio B</option>
+                        <option value="Servicio C">Servicio C</option>
+                    </select>
+                </div>
+
+                <!-- Botón de Registro -->
+                <div class="text-center">
+                    <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition-colors">
+                        Registrar Lead
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-200 mt-10 py-4 text-center text-gray-600">
+        © 2025 Leads Tracker. Todos los derechos reservados.
+    </footer>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+</body>
+</html>
